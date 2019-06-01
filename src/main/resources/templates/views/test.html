@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" >
+<head>
+<meta charset="UTF-8"/>
+<script th:replace="~{common/head::static}"></script>
+
+<title th:text="用户列表">Title</title>
+</head>
+<body>
+	<table th:each="user,userStat:${userList}" th:class="${userStat.even}?'even':'odd'">
+		<tr>
+			<td th:text="${userStat.count}"></td>
+			<td th:text="${user.id}"></td>
+			<td th:text="${user.username}"></td>
+			<td th:text="${user.password}"></td>
+		</tr>
+	</table>
+</body>
+</html>

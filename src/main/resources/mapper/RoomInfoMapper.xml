@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cyp.home.mapper.RoomInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.cyp.home.model.RoomInfo" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="estate_Name" property="estateName" jdbcType="VARCHAR" />
+    <result column="home_Status" property="homeStatus" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="VARCHAR" />
+    <result column="region" property="region" jdbcType="VARCHAR" />
+    <result column="oriented" property="oriented" jdbcType="VARCHAR" />
+    <result column="home_Use" property="homeUse" jdbcType="VARCHAR" />
+    <result column="decoration" property="decoration" jdbcType="VARCHAR" />
+    <result column="room_Number" property="roomNumber" jdbcType="VARCHAR" />
+    <result column="floor_Num" property="floorNum" jdbcType="VARCHAR" />
+    <result column="real_Name" property="realName" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="memberCode" property="memberCode" jdbcType="VARCHAR" />
+    <result column="create_Time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_Time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Where_List">
+  	<if test="id != null and id != '' ">
+  		and id = #{id}
+  	</if>
+  	<if test="estateName != null  and estateName != '' ">
+  		and estate_Name = #{estateName}
+  	</if>
+  	<if test="homeStatus != null and homeStatus != '' ">
+  		and home_Status = #{homeStatus}
+  	</if>
+  	<if test="area != null and area != '' ">
+  		and area = #{area}
+  	</if>
+  	<if test="price != null and price != '' ">
+  		and price = #{price}
+  	</if>
+  	<if test="region != null and region != '' ">
+  		and region = #{region}
+  	</if>
+  	<if test="oriented != null and oriented != '' ">
+  		and oriented = #{oriented}
+  	</if>
+  	<if test="homeUse != null and homeUse != '' ">
+  		and home_Use = #{homeUse}
+  	</if>
+  	<if test="decoration != null and decoration != '' ">
+  		and decoration = #{decoration}
+  	</if>
+  	<if test="roomNumber != null and roomNumber != '' ">
+  		and room_Number = #{roomNumber}
+  	</if>
+  	<if test="floorNum != null and floorNum != '' ">
+  		and floor_Num = #{floorNum}
+  	</if>
+  	<if test="realName != null and realName != '' ">
+  		and real_Name = #{realName}
+  	</if>
+  	<if test="address != null and address != '' ">
+  		and address = #{address}
+  	</if>
+  	<if test="memberCode != null and memberCode != '' ">
+  		and memberCode = #{memberCode}
+  	</if>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, estate_Name, home_Status, area, price, region, oriented, home_Use, decoration, 
+    room_Number, floor_Num, real_Name, address, memberCode, create_Time, update_Time
+  </sql>
+  
+  <select id="selectRoomInfoByPage" parameterType="com.cyp.home.model.RoomInfo" resultMap="BaseResultMap">
+  	select 
+  		<include refid="Base_Column_List"></include>
+  	from m_room_info where 1=1
+  	<include refid="Base_Where_List"></include>
+  	order by create_time desc
+  </select>
+  
+  <select id="selectRoomInfoByPage_COUNT" parameterType="com.cyp.home.model.RoomInfo" resultType="java.lang.Integer">
+  	select 
+  		count(1)
+  	from m_room_info where 1=1
+  	<include refid="Base_Where_List"></include>
+  </select>
+  
+  
+  
+    <insert id="addRoomInfo" parameterType="com.cyp.home.model.RoomInfo" >
+    insert into m_room_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="estateName != null" >
+        estate_Name,
+      </if>
+      <if test="homeStatus != null" >
+        home_Status,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="region != null" >
+        region,
+      </if>
+      <if test="oriented != null" >
+        oriented,
+      </if>
+      <if test="homeUse != null" >
+        home_Use,
+      </if>
+      <if test="decoration != null" >
+        decoration,
+      </if>
+      <if test="roomNumber != null" >
+        room_Number,
+      </if>
+      <if test="floorNum != null" >
+        floor_Num,
+      </if>
+      <if test="realName != null" >
+        real_Name,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="membercode != null" >
+        memberCode,
+      </if>
+        create_Time,
+        update_Time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="estateName != null" >
+        #{estateName,jdbcType=VARCHAR},
+      </if>
+      <if test="homeStatus != null" >
+        #{homeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null" >
+        #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="oriented != null" >
+        #{oriented,jdbcType=VARCHAR},
+      </if>
+      <if test="homeUse != null" >
+        #{homeUse,jdbcType=VARCHAR},
+      </if>
+      <if test="decoration != null" >
+        #{decoration,jdbcType=VARCHAR},
+      </if>
+      <if test="roomNumber != null" >
+        #{roomNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="floorNum != null" >
+        #{floorNum,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="membercode != null" >
+        #{membercode,jdbcType=VARCHAR},
+      </if>
+        now(),
+        now(),
+    </trim>
+  </insert>
+</mapper>
