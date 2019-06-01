@@ -148,33 +148,75 @@
     			<th field="homeUse">用途</th>
     			<th field="decoration">装修</th>
     			<th field="realName">经纪人</th>
-    			<th field="name13">操作</th>
+    			<th field="createTimeStr">添加时间</th>
+    			<th field="name13" formatter="operate_formatter">操作</th>
     			<!-- address -->
     		</tr>
     	</thead>
-    	<!-- <tbody>
-    		<tr th:each="Info,InfoStatu:${roomInfoList}">
-    			<td>1</td>
-    			<td th:text="${Info.homeStatus}">在租</td>
-    			<td th:text="${Info.region}">海淀区</td>
-    			<td th:text="${Info.estateName}">虹桥国际ddddddddddddddddddddddddddddddddddd</td>
-    			<td th:text="${Info.roomNumber}">C-205</td>
-    			<td th:text="${Info.oriented}">朝南</td>
-    			<td th:text="${Info.floorNum}">5m</td>
-    			<td th:text="${Info.area}">206m</td>
-    			<td th:text="${Info.price}">3.8</td>
-    			<td th:text="${Info.homeUse}">办公室</td>
-    			<td th:text="${Info.decoration}">精装修</td>
-    			<td th:text="${Info.realName}">宋世文</td>
-    			<td>详情</td>
-    		</tr>
-    	</tbody> -->
     </table>
     
 </div>
 <!-- Begin of easyui-dialog -->
 <div id="wu-dialog-2" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:400px; padding:10px;">
 	<form id="wu-form-2" method="post">
+        <table>
+            <tr>
+                <td width="60" align="right">城区:</td>
+                <td><input type="text" name="region" class="wu-text" /></td>
+            </tr>
+            <tr>
+                <td align="right">地址:</td>
+                <td><input type="text" name="address" class="wu-text" /></td>
+            </tr>
+            <tr>
+                <td align="right">物业名称:</td>
+                <td><input type="text" name="estateName" class="wu-text" /></td>
+            </tr>
+            <tr>
+                <td align="right">房间号:</td>
+                <td><input type="text" name="roomNumber" class="wu-text" /></td>
+            </tr>
+            <tr>
+                <td align="right">朝向:</td>
+                <td>
+					<select  name="oriented" class="easyui-combobox" panelHeight="auto" style="width:100px">
+		                <option value=""></option>
+		                <option value="朝南">朝南</option>
+		                <option value="朝北">朝北</option>
+		                <option value="朝东">朝东</option>
+		                <option value="朝西">朝西</option>
+		            </select>
+				</td>
+            </tr>
+            <tr>
+                <td align="right">层高:</td>
+                <td><input type="text" name="floorNum" class="wu-text" /></td>
+            </tr>
+            <tr>
+                <td align="right">面积:</td>
+                <td><input type="text" name="area" class="wu-text" /></td>
+            </tr>
+            <tr>
+                <td align="right">价格:</td>
+                <td><input type="text" name="price" class="wu-text" /></td>
+            </tr>
+            <tr>
+                <td align="right">用途:</td>
+                <td><input type="text" name="homeUse" class="wu-text" /></td>
+            </tr>
+            <tr>
+                <td align="right">装修:</td>
+                <td><input type="text" name="decoration" class="wu-text" /></td>
+            </tr>
+            <tr>
+                <td align="right">状态:</td>
+                <td><input type="text" name="homeStatus" class="wu-text" /></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div id="room_XiangQing_dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:400px; padding:10px;">
+	<form id="room_XiangQing_form" method="post">	
         <table>
             <tr>
                 <td width="60" align="right">城区:</td>
@@ -231,12 +273,28 @@
         </table>
     </form>
 </div>
+<div id="room_XiangQing">房屋详情</div>
 <!-- End of easyui-dialog -->
 <script type="text/javascript">
-	$(function(){
-		/* doSearch() */
-	});
-
+	//详情按钮
+	function operate_formatter(value, row, index) {
+	    return "<a href='#' onclick='openXiangQing(\""+row.id+"\")' class='easyui-linkbutton'>详情</a>";
+	}
+	
+	//点击详情按钮，打开房屋详情弹窗
+	function openXiangQing(rowId){
+		$('#room_XiangQing').dialog({
+		    title: '房屋详情',
+		    width: 1000,
+		    height: 500,
+		    closed: false,
+		    cache: false,
+		    href: 'getRoom_XiangQing?id='+rowId,
+		    modal: true
+		});
+	}
+	
+	
 	/**
 	* Name 添加记录
 	*/
@@ -377,5 +435,7 @@
         });
 	}	
 	
-	
+	function close_Room_XiangQing(){
+		$('#room_XiangQing').dialog('close');
+	}
 </script>

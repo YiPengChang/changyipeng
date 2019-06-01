@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cyp.home.mapper.RoomInfoMapper" >
   <resultMap id="BaseResultMap" type="com.cyp.home.model.RoomInfo" >
-    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="id" property="id" jdbcType="VARCHAR" />
     <result column="estate_Name" property="estateName" jdbcType="VARCHAR" />
     <result column="home_Status" property="homeStatus" jdbcType="VARCHAR" />
     <result column="area" property="area" jdbcType="VARCHAR" />
@@ -133,6 +133,13 @@
   	<include refid="Base_Where_List"></include>
   	order by create_time desc
   </select>
+  <select id="selectRoomInfoByParams" parameterType="com.cyp.home.model.RoomInfo" resultMap="BaseResultMap">
+  	select 
+  		<include refid="Base_Column_List"></include>
+  	from m_room_info where 1=1
+  	<include refid="Base_Where_List"></include>
+  	order by create_time desc
+  </select>
   
   <select id="selectRoomInfoByPage_COUNT" parameterType="com.cyp.home.model.RoomInfo" resultType="java.lang.Integer">
   	select 
@@ -141,6 +148,52 @@
   	<include refid="Base_Where_List"></include>
   </select>
   
+  <update id="updateRoomInfoByParams" parameterType="com.cyp.home.model.RoomInfo">
+  	update m_room_info 
+	<set>
+	  	<if test="estateName != null">
+		  	estate_Name = #{estateName},
+	  	</if>
+	  	<if test="homeStatus">
+	  		home_Status = #{homeStatus},
+	  	</if>
+	  	<if test="area">
+	  		area = #{area},
+	  	</if>
+	  	<if test="price">
+	  		price = #{price},
+	  	</if>
+	  	<if test="region">
+	  		region = #{region},
+	  	</if>
+	  	<if test="oriented">
+	  		oriented = #{oriented},
+	  	</if>
+	  	<if test="homeUse">
+	  		home_Use = #{homeUse},
+	  	</if>
+	  	<if test="decoration">
+	  		decoration = #{decoration},
+	  	</if>
+	  	<if test="roomNumber">
+	  		room_Number = #{roomNumber},
+	  	</if>
+	  	<if test="floorNum">
+	  		floor_Num = #{floorNum},
+	  	</if>
+	  	<if test="realName">
+	  		real_Name = #{realName},
+	  	</if>
+	  	<if test="address">
+	  		address = #{address},
+	  	</if>
+	  	<if test="memberCode">
+	  		memberCode = #{memberCode},
+	  	</if>
+	</set>
+	where 1=1
+	and id = #{id}
+  </update>
   
   
     <insert id="addRoomInfo" parameterType="com.cyp.home.model.RoomInfo" >
@@ -193,7 +246,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=VARCHAR},
       </if>
       <if test="estateName != null" >
         #{estateName,jdbcType=VARCHAR},

@@ -1,0 +1,143 @@
+<style type="text/css">
+input{
+	width: 90%;
+}
+/* .even{
+background-color: pink
+}
+.odd{
+background-color: blue
+} */
+</style>
+<div class="easyui-layout" data-options="fit:true" xmlns:th="http://www.thymeleaf.org" style="overflow: scroll;">
+	<div id="roomInfo" style="width: 70%;float:left;">
+		<form id="roomInfoForm">
+			<input id="id" name="id" th:value="${roomId}" hidden="hidden">
+			<table>
+				<thead>
+					<tr>
+						<th style="width:10%;" align="right"></th>
+		       			<th style="width:15%"></th>
+		       			<th style="width:10%" align="right"></th>
+		       			<th style="width:15%"></th>
+		       			
+		       			<th style="width:10%" align="right"></th>
+		       			<th style="width:15%"></th>
+		       			<th style="width:10%" align="right"></th>
+		       			<th style="width:15%"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>城区：</td>
+						<td><input name="region" th:value="${roomInfo.region}"></td>
+						<td>地址：</td>
+						<td><input name="address"  th:value="${roomInfo.address}"></td>
+						<td>物业名称：</td>
+						<td><input name="estateName" th:value="${roomInfo.estateName}"></td>
+						<td>房间号：</td>
+						<td><input name="roomNumber" th:value="${roomInfo.roomNumber}"></td>
+					</tr>
+					<tr>
+						<td>面积：</td>
+						<td><input name="area" th:value="${roomInfo.area}"></td>
+						<td>价格：</td>
+						<td><input name="price" th:value="${roomInfo.price}"></td>
+						<td>用途：</td>
+						<td><input name="homeUse" th:value="${roomInfo.homeUse}"></td>
+						<td>朝向：</td>
+						<td><input name="oriented" th:value="${roomInfo.oriented}"></td>
+					</tr>
+					<tr>
+						<td>层高：</td>
+						<td><input name="floorNum" th:value="${roomInfo.floorNum}"></td>
+						<td>状态：</td>
+						<td><input name="homeStatus" th:value="${roomInfo.homeStatus}"></td>
+						<td>装修：</td>
+						<td><input name="decoration" th:value="${roomInfo.decoration}"></td>
+						<td>经纪人：</td>
+						<td><input name="realName" th:value="${roomInfo.realName}"></td>
+					</tr>
+					<tr>
+						<td colspan="2"><a href="#" style="text-align: center;" class="easyui-linkbutton" onclick="updateRoomInfo()" iconCls="icon-ok">修改资料</a></td>
+						<td ></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+		
+		<table border="1" cellspacing="0" style="width: 100%">
+			<thead>
+				<tr>
+					<th style="width: 78%"></th>
+					<th style="width: 22%"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<input id="addContent" name="addContent" style="width: 99%" placeholder="请输入跟进内容...">
+					</td>
+					<td align="center"><a href="#" style="text-align: center;" class="easyui-linkbutton" onclick="addRoomFollow()" iconCls="icon-add">添加跟进</a></td>
+				</tr>
+				<tr th:each="roomFollow,roomFollowStau:${roomFollowList}" th:class="${roomFollowStau.even}?'even':'odd'">
+					<td>
+						<input readonly="readonly" style="width: 99%" th:value="${roomFollow.content}">
+					</td>
+					<td th:text="${roomFollow.createTimeStr}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div id="roomImage" style="width: 30%;float:right;">
+		这里放照片<br/>这里放照片<br/>这里放照片<br/>这里放照片<br/>这里放照片<br/>这里放照片<br/>这里放照片<br/>
+	</div>
+</div>
+<script type="text/javascript">
+	function addRoomFollow(){
+		var roomId = $("#id").val();
+		var addContent = $("#addContent").val();
+		$.ajax({
+			  type: 'POST',
+			  url: "addRoomFollow",
+			  data: {
+				  	 	'content':addContent,
+				  	 	'roomId':roomId
+				  	 },
+			  dataType: 'JSON',
+			  success: function(data) {
+				if(data == '1'){
+					alert("添加成功！"); 
+					close_Room_XiangQing();
+				}else{
+					alert("添加失败！")
+				}
+			  }
+			});
+	}
+	//修改房屋信息
+	function updateRoomInfo(){
+		var roomInfoFormJson = $('#roomInfoForm').serializeObject();
+		//var obj4 = JSON.stringify(obj3);   //通过3转化为json字符串
+		$.ajax({
+			  type: 'POST',
+			  url: "updateRoomInfo",
+			  data: roomInfoFormJson,
+			  dataType: 'JSON',
+			  success: function(data) {
+				if(data == '1'){
+					alert("修改成功！"); 
+					close_Room_XiangQing();
+					doSearch();
+				}else{
+					alert("修改失败！")
+				}
+			  }
+			});
+	}
+</script>

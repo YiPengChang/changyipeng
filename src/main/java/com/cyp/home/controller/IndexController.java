@@ -4,18 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.configurationprocessor.json.JSONException;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.cyp.home.model.ResultJson;
+import com.cyp.home.model.RoomFollow;
 import com.cyp.home.model.RoomInfo;
-import com.cyp.home.model.RoomInfoExample;
 import com.cyp.home.service.RoomInfoService;
 
 @Controller
@@ -46,5 +42,35 @@ public class IndexController {
 		return result;
 	}
 	
+	//获取房屋详情页面
+	@RequestMapping(value = {"getRoom_XiangQing"})
+	public String getRoom_XiangQing(ModelMap modelMap,String id) {
+		RoomFollow roomFollow = new RoomFollow();
+		roomFollow.setRoomId(id);
+		List<RoomFollow> roomFollowList = roomInfoService.selectRoomFollowByParams(roomFollow);
+		
+		//查询房屋信息
+		RoomInfo roomInfo = new RoomInfo();
+		roomInfo.setId(id);
+		List<RoomInfo> roomInfoList = roomInfoService.selectRoomInfoByParams(roomInfo);
+		roomInfo = roomInfoList.get(0);
+		
+		modelMap.addAttribute("roomFollowList", roomFollowList);
+		modelMap.addAttribute("roomInfo", roomInfo);
+		modelMap.addAttribute("roomId", id);
+		return "views/temp/Room_XiangQing";
+	}
 	
+	@ResponseBody
+	@RequestMapping(value = {"addRoomFollow"})
+	public String addRoomFollow(RoomFollow roomFollow) throws Exception {
+		int count = roomInfoService.addRoomFollow(roomFollow);
+		return count+"";
+	}
+	@ResponseBody
+	@RequestMapping(value = {"updateRoomInfo"})
+	public String updateRoomInfo(RoomInfo roomInfo) throws Exception {
+		int count = roomInfoService.updateRoomInfoByParams(roomInfo);
+		return count+"";
+	}
 }

@@ -1,10 +1,11 @@
 package com.cyp.home.model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class RoomInfo extends Page implements Serializable{
-    private Integer id;
+    private String id;
 
     private String estateName;
 
@@ -36,16 +37,37 @@ public class RoomInfo extends Page implements Serializable{
 
     private Date updateTime;
     
+    private String createTimeStr;
+    
 
-	public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    public String getMemberCode() {
+		return memberCode;
+	}
 
-    public String getEstateName() {
+	public void setMemberCode(String memberCode) {
+		this.memberCode = memberCode;
+	}
+
+
+	public String getCreateTimeStr() {
+		return createTimeStr;
+	}
+
+	public void setCreateTimeStr(String createTimeStr) {
+		this.createTimeStr = createTimeStr;
+	}
+
+
+    public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getEstateName() {
         return estateName;
     }
 
@@ -154,6 +176,10 @@ public class RoomInfo extends Page implements Serializable{
     }
 
     public void setCreateTime(Date createTime) {
+    	if(createTime != null) {
+    		SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd HH:mm:ss");
+    		setCreateTimeStr(sdf.format(createTime));
+    	}
         this.createTime = createTime;
     }
 

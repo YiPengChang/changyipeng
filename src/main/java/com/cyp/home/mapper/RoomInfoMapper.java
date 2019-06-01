@@ -10,5 +10,9 @@ public interface RoomInfoMapper {
 	
 	int selectRoomInfoByPage_COUNT(RoomInfo roomInfo);
 	
+	int updateRoomInfoByParams(RoomInfo roomInfo);
+	
+	List<RoomInfo> selectRoomInfoByParams(RoomInfo roomInfo);
+	
 	int addRoomInfo(RoomInfo roomInfo);
 }
