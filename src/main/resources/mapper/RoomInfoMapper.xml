@@ -16,67 +16,13 @@
     <result column="real_Name" property="realName" jdbcType="VARCHAR" />
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="memberCode" property="memberCode" jdbcType="VARCHAR" />
+    <result column="estate_fee" property="estateFee" jdbcType="VARCHAR" />
+    <result column="parking_fee" property="parkingFee" jdbcType="VARCHAR" />
+    <result column="electricity_fee" property="electricityFee" jdbcType="VARCHAR" />
+    <result column="pay_way" property="payWay" jdbcType="VARCHAR" />
     <result column="create_Time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_Time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
   <sql id="Base_Where_List">
   	<if test="id != null and id != '' ">
   		and id = #{id}
@@ -120,10 +66,22 @@
   	<if test="memberCode != null and memberCode != '' ">
   		and memberCode = #{memberCode}
   	</if>
+  	<if test="estateFee != null and estateFee != '' ">
+  		and estate_fee = #{estateFee}
+  	</if>
+  	<if test="parkingFee != null and parkingFee != '' ">
+  		and parking_fee = #{parkingFee}
+  	</if>
+  	<if test="electricityFee != null and electricityFee != '' ">
+  		and electricity_fee = #{electricityFee}
+  	</if>
+  	<if test="payWay != null and payWay != '' ">
+  		and pay_way = #{payWay}
+  	</if>
   </sql>
   <sql id="Base_Column_List" >
     id, estate_Name, home_Status, area, price, region, oriented, home_Use, decoration, 
-    room_Number, floor_Num, real_Name, address, memberCode, create_Time, update_Time
+    room_Number, floor_Num, real_Name, address, memberCode,estate_fee,parking_fee,electricity_fee,pay_way, create_Time, update_Time
   </sql>
   
   <select id="selectRoomInfoByPage" parameterType="com.cyp.home.model.RoomInfo" resultMap="BaseResultMap">
@@ -187,8 +145,20 @@
 	  	<if test="address">
 	  		address = #{address},
 	  	</if>
+	  	<if test="estateFee">
+	  		estate_fee = #{estateFee},
+	  	</if>
 	  	<if test="memberCode">
 	  		memberCode = #{memberCode},
+	  	</if>
+	  	<if test="parkingFee">
+	  		parking_fee = #{parkingFee},
+	  	</if>
+	  	<if test="electricityFee">
+	  		electricity_fee = #{electricityFee},
+	  	</if>
+	  	<if test="payWay">
+	  		pay_way = #{payWay},
 	  	</if>
 	</set>
 	where 1=1
@@ -238,8 +208,20 @@
       <if test="address != null" >
         address,
       </if>
-      <if test="membercode != null" >
+      <if test="memberCode != null" >
         memberCode,
+      </if>
+      <if test="estateFee != null" >
+        estate_fee,
+      </if>
+      <if test="parkingFee != null" >
+        parking_fee,
+      </if>
+      <if test="electricityFee != null" >
+        electricity_fee,
+      </if>
+      <if test="payWay != null" >
+        pay_way,
       </if>
         create_Time,
         update_Time,
@@ -284,8 +266,20 @@
       <if test="address != null" >
         #{address,jdbcType=VARCHAR},
       </if>
-      <if test="membercode != null" >
-        #{membercode,jdbcType=VARCHAR},
+      <if test="memberCode != null" >
+        #{memberCode,jdbcType=VARCHAR},
+      </if>
+      <if test="estateFee != null" >
+        #{estateFee,jdbcType=VARCHAR},
+      </if>
+      <if test="parkingFee != null" >
+        #{parkingFee,jdbcType=VARCHAR},
+      </if>
+      <if test="electricityFee != null" >
+        #{electricityFee,jdbcType=VARCHAR},
+      </if>
+      <if test="payWay != null" >
+        #{payWay,jdbcType=VARCHAR},
       </if>
         now(),
         now(),

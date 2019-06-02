@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cyp.home.mapper.UserMemberMapper" >
+  <resultMap id="BaseResultMap" type="com.cyp.home.model.UserMember" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="member_Code" property="memberCode" jdbcType="VARCHAR" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="userName" property="userName" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="create_Time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_Time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Where_List">
+  	<if test="id != null and id != '' ">
+  		and id = #{id}
+  	</if>
+  	<if test="memberCode != null  and memberCode != '' ">
+  		and member_code = #{memberCode}
+  	</if>
+  	<if test="realName != null and realName != '' ">
+  		and real_name = #{realName}
+  	</if>
+  	<if test="mobile != null and mobile != '' ">
+  		and mobile = #{mobile}
+  	</if>
+  	<if test="email != null and email != '' ">
+  		and email = #{email}
+  	</if>
+  	<if test="userName != null and userName != '' ">
+  		and userName = #{userName}
+  	</if>
+  	<if test="password != null and password != '' ">
+  		and password = #{password}
+  	</if>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, real_name, member_Code, email, userName,password, create_Time, update_Time
+  </sql>
+  
+  <select id="getUserMemberByparams" parameterType="com.cyp.home.model.UserMember" resultMap="BaseResultMap">
+  	select 
+  		<include refid="Base_Column_List"></include>
+  	from m_user_member where 1=1
+  	<include refid="Base_Where_List"></include>
+  	order by create_time desc
+  </select>
+  
+    <insert id="addRoomFollow" parameterType="com.cyp.home.model.UserMember" >
+    insert into m_user_member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="realName != null" >
+        real_name,
+      </if>
+      <if test="memberCode != null" >
+        member_Code,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+	  <if test="userName != null" >
+        userName,
+      </if>
+	  <if test="password != null" >
+        password,
+      </if>
+        create_Time,
+        update_Time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="memberCode != null" >
+        #{memberCode,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+	  <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+	  <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+        now(),
+        now(),
+    </trim>
+  </insert>
+</mapper>

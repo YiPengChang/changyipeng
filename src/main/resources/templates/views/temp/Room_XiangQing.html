@@ -59,6 +59,16 @@ background-color: blue
 						<td><input name="realName" th:value="${roomInfo.realName}"></td>
 					</tr>
 					<tr>
+						<td>物业费：</td>
+						<td><input name="estateFee" th:value="${roomInfo.estateFee}"></td>
+						<td>停车费：</td>
+						<td><input name="parkingFee" th:value="${roomInfo.parkingFee}"></td>
+						<td>电费：</td>
+						<td><input name="electricityFee" th:value="${roomInfo.electricityFee}"></td>
+						<td>付款方式：</td>
+						<td><input name="payWay" th:value="${roomInfo.payWay}"></td>
+					</tr>
+					<tr>
 						<td colspan="2"><a href="#" style="text-align: center;" class="easyui-linkbutton" onclick="updateRoomInfo()" iconCls="icon-ok">修改资料</a></td>
 						<td colspan="2"><a href="#" style="text-align: center;" class="easyui-linkbutton" onclick="close_Room_XiangQing()" iconCls="icon-cancel">关闭窗口</a></td>
 						<td></td>
@@ -103,18 +113,19 @@ background-color: blue
 		var addContent = $("#addContent").val();
 		$.ajax({
 			  type: 'POST',
-			  url: "addRoomFollow",
+			  url: "addRoomFollow.htm",
 			  data: {
 				  	 	'content':addContent,
 				  	 	'roomId':roomId
 				  	 },
 			  dataType: 'JSON',
 			  success: function(data) {
-				if(data == '1'){
+				  debugger;
+				if(data.code == '1'){
 					alert("添加成功！"); 
 					close_Room_XiangQing();
 				}else{
-					alert("添加失败！")
+					alert(data.msg)
 				}
 			  }
 			});
@@ -125,7 +136,7 @@ background-color: blue
 		//var obj4 = JSON.stringify(obj3);   //通过3转化为json字符串
 		$.ajax({
 			  type: 'POST',
-			  url: "updateRoomInfo",
+			  url: "updateRoomInfo.htm",
 			  data: roomInfoFormJson,
 			  dataType: 'JSON',
 			  success: function(data) {
@@ -134,7 +145,7 @@ background-color: blue
 					close_Room_XiangQing();
 					doSearch();
 				}else{
-					alert("修改失败！")
+					alert(data)
 				}
 			  }
 			});

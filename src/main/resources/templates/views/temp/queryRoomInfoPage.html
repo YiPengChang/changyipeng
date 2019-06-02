@@ -114,42 +114,33 @@
 	            <a href="#" style="text-align: center;" class="easyui-linkbutton" onclick="doSearch()" iconCls="icon-search">开始检索</a>
 	            <a href="#" style="text-align: center;" class="easyui-linkbutton" onclick="doClear()" iconCls="icon-reload">清空</a>
 	            <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openAdd()" plain="true">添加</a>
-	            <!-- <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
-	            <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
-	            <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="cancel()" plain="true">取消</a>
-	            <a href="#" class="easyui-linkbutton" iconCls="icon-reload" onclick="reload()" plain="true">刷新</a>
-	            <a href="#" class="easyui-linkbutton" iconCls="icon-print" onclick="openAdd()" plain="true">打印</a>
-	            <a href="#" class="easyui-linkbutton" iconCls="icon-help" onclick="openEdit()" plain="true">帮助</a>
-	            <a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="remove()" plain="true">撤销</a>
-	            <a href="#" class="easyui-linkbutton" iconCls="icon-redo" onclick="cancel()" plain="true">重做</a>
-	            <a href="#" class="easyui-linkbutton" iconCls="icon-sum" onclick="reload()" plain="true">总计</a>
-	            <a href="#" class="easyui-linkbutton" iconCls="icon-back" onclick="reload()" plain="true">返回</a>
-	            <a href="#" class="easyui-linkbutton" iconCls="icon-tip" onclick="reload()" plain="true">提示</a>
-	            <a href="#" class="easyui-linkbutton" iconCls="icon-save" onclick="reload()" plain="true">保存</a>
-	            <a href="#" class="easyui-linkbutton" iconCls="icon-cut" onclick="reload()" plain="true">剪切</a> -->
 	        </div>
         </div>
     </div>
     <!-- End of toolbar -->
-    <table id="wu-datagrid-2" class="easyui-datagrid" toolbar="#wu-toolbar-2" style="width:auto;height:638px;" pagination="true"
-    url="queryRoomInfoPageJson" >
+    <table id="wu-datagrid-2" class="easyui-datagrid" toolbar="#wu-toolbar-2" style="width:1366px;height:638px;" pagination="true"
+    url="queryRoomInfoPageJson.htm" data-options="nowrap:false" >
     	<thead>
     		<tr>
-    			<th field="notFollow" >无跟进</th>
-    			<th field="homeStatus">状态</th>
-    			<th field="region">城区</th>
-    			<th field="address">地址</th>
-    			<th field="estateName">物业名称</th>
-    			<th field="roomNumber">房间号</th>
-    			<th field="oriented">朝向</th>
-    			<th field="floorNum">层高</th>
-    			<th field="area">面积</th>
-    			<th field="price">价格</th>
-    			<th field="homeUse">用途</th>
-    			<th field="decoration">装修</th>
-    			<th field="realName">经纪人</th>
-    			<th field="createTimeStr">添加时间</th>
-    			<th field="name13" formatter="operate_formatter">操作</th>
+    			<th data-options="field:'notFollow',width:'40'">无跟进</th>
+    			<th data-options="field:'homeStatus',width:'40'" >状态</th>
+    			<th data-options="field:'region',width:'40'"  >城区</th>
+    			<th data-options="field:'address',width:'80'"  >地址</th>
+    			<th data-options="field:'estateName',width:'40'"  >物业名称</th>
+    			<th data-options="field:'roomNumber',width:'40'"  >房间号</th>
+    			<th data-options="field:'oriented',width:'40'" field="oriented">朝向</th>
+    			<th data-options="field:'floorNum',width:'40'" >层高</th>
+    			<th data-options="field:'area',width:'40'" >面积</th>
+    			<th data-options="field:'price',width:'40'"  >价格</th>
+    			<th data-options="field:'homeUse',width:'40'"  >用途</th>
+    			<th data-options="field:'decoration',width:'40'" >装修</th>
+    			<th data-options="field:'estateFee',width:'40'" >物业费</th>
+    			<th data-options="field:'parkingFee',width:'40'" >停车费</th>
+    			<th data-options="field:'electricityFee',width:'40'" >电费</th>
+    			<th data-options="field:'payWay',width:'40'" >付款方式</th>
+    			<th data-options="field:'realName',width:'40'" >经纪人</th>
+    			<!-- <th data-options="field:'createTimeStr',width:'40'" >添加时间</th> -->
+    			<th data-options="field:'name13',width:'40'"  formatter="operate_formatter">操作</th>
     			<!-- address -->
     		</tr>
     	</thead>
@@ -211,6 +202,22 @@
             <tr>
                 <td align="right">状态:</td>
                 <td><input type="text" name="homeStatus" class="wu-text" /></td>
+            </tr>
+            <tr>
+                <td align="right">物业费:</td>
+                <td><input type="text" name="estateFee" class="wu-text" /></td>
+            </tr>
+            <tr>
+                <td align="right">停车费:</td>
+                <td><input type="text" name="parkingFee" class="wu-text" /></td>
+            </tr>
+            <tr>
+                <td align="right">电费:</td>
+                <td><input type="text" name="electricityFee" class="wu-text" /></td>
+            </tr>
+            <tr>
+                <td align="right">付款方式:</td>
+                <td><input type="text" name="payWay" class="wu-text" /></td>
             </tr>
         </table>
     </form>
@@ -289,7 +296,7 @@
 		    height: 500,
 		    closed: false,
 		    cache: false,
-		    href: 'getRoom_XiangQing?id='+rowId,
+		    href: 'getRoom_XiangQing.htm?id='+rowId,
 		    modal: true
 		});
 	}
@@ -300,7 +307,7 @@
 	*/
 	function add(){
 		$('#wu-form-2').form('submit', {
-			url:'addRoomInfo',
+			url:'addRoomInfo.htm',
 			success:function(data){
 				debugger;
 				if(data == '1'){

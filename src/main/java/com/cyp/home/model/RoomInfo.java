@@ -32,6 +32,14 @@ public class RoomInfo extends Page implements Serializable{
     private String address;
 
     private String memberCode;
+    
+    private String estateFee;
+    
+    private String parkingFee;
+    
+    private String electricityFee;
+    
+    private String payWay;
 
     private Date createTime;
 
@@ -49,6 +57,38 @@ public class RoomInfo extends Page implements Serializable{
 		this.memberCode = memberCode;
 	}
 
+
+	public String getEstateFee() {
+		return estateFee;
+	}
+
+	public void setEstateFee(String estateFee) {
+		this.estateFee = estateFee;
+	}
+
+	public String getParkingFee() {
+		return parkingFee;
+	}
+
+	public void setParkingFee(String parkingFee) {
+		this.parkingFee = parkingFee;
+	}
+
+	public String getElectricityFee() {
+		return electricityFee;
+	}
+
+	public void setElectricityFee(String electricityFee) {
+		this.electricityFee = electricityFee;
+	}
+
+	public String getPayWay() {
+		return payWay;
+	}
+
+	public void setPayWay(String payWay) {
+		this.payWay = payWay;
+	}
 
 	public String getCreateTimeStr() {
 		return createTimeStr;
@@ -163,13 +203,6 @@ public class RoomInfo extends Page implements Serializable{
         this.address = address == null ? null : address.trim();
     }
 
-    public String getMembercode() {
-        return memberCode;
-    }
-
-    public void setMembercode(String membercode) {
-        this.memberCode = membercode == null ? null : membercode.trim();
-    }
 
     public Date getCreateTime() {
         return createTime;
@@ -196,8 +229,11 @@ public class RoomInfo extends Page implements Serializable{
 		return "RoomInfo [id=" + id + ", estateName=" + estateName + ", homeStatus=" + homeStatus + ", area=" + area
 				+ ", price=" + price + ", region=" + region + ", oriented=" + oriented + ", homeUse=" + homeUse
 				+ ", decoration=" + decoration + ", roomNumber=" + roomNumber + ", floorNum=" + floorNum + ", realName="
-				+ realName + ", address=" + address + ", membercode=" + memberCode + ", createTime=" + createTime
-				+ ", updateTime=" + updateTime + "]";
+				+ realName + ", address=" + address + ", memberCode=" + memberCode + ", estateFee=" + estateFee
+				+ ", parkingFee=" + parkingFee + ", electricityFee=" + electricityFee + ", payWay=" + payWay
+				+ ", createTime=" + createTime + ", updateTime=" + updateTime + ", createTimeStr=" + createTimeStr
+				+ "]";
 	}
+
     
 }

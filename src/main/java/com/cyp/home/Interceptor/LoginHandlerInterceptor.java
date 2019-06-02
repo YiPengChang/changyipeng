@@ -1,5 +1,7 @@
 package com.cyp.home.Interceptor;
 
+import java.util.Enumeration;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,9 +20,14 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		Object user = request.getSession().getAttribute("loginUser");
+		Enumeration<String> attributeNames = request.getSession().getAttributeNames();
+		while(attributeNames.hasMoreElements()) {
+			String nextElement = attributeNames.nextElement();
+			System.out.println(nextElement);
+		}
 		if(user == null) {
 			request.setAttribute("msg", "没有权限请先登陆");
-			request.getRequestDispatcher("/login").forward(request, response);
+			request.getRequestDispatcher("/loginView.htm").forward(request, response);
 			return false;
 		}else {
 			//已登录，放行请求
