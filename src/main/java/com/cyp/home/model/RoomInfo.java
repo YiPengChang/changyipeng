@@ -40,6 +40,10 @@ public class RoomInfo extends Page implements Serializable{
     private String electricityFee;
     
     private String payWay;
+    
+    private String ownerMobile;
+    
+    private String lock = "0";
 
     private Date createTime;
 
@@ -64,6 +68,22 @@ public class RoomInfo extends Page implements Serializable{
 
 	public void setEstateFee(String estateFee) {
 		this.estateFee = estateFee;
+	}
+
+	public String getOwnerMobile() {
+		return ownerMobile;
+	}
+
+	public String getLock() {
+		return lock;
+	}
+
+	public void setLock(String lock) {
+		this.lock = lock;
+	}
+
+	public void setOwnerMobile(String ownerMobile) {
+		this.ownerMobile = ownerMobile;
 	}
 
 	public String getParkingFee() {

@@ -14,10 +14,10 @@
 			<h1>Welcome</h1>
 			
 			<form class="form">
-				<input type="text" id="userName" placeholder="Username">
-				<input type="password" id="password" placeholder="Password">
-				<button type="submit" id="login-button">登录</button>
-				<button type="submit">注册</button>
+				<input type="text" id="userName" placeholder="用户名">
+				<input type="password" id="password" placeholder="密码">
+				<button type="submit" id="login-button" >登录</button>
+				<button   onclick="register()">注册</button>
 			</form>
 		</div>
 		
@@ -38,6 +38,11 @@
 
 <script src="js/jquery-1.8.0.min.js" type="text/javascript"></script>
 <script>
+function register(){
+	event.preventDefault();
+	window.location.replace("getRegister.htm");
+}
+
 $('#login-button').click(function (event) {
 	event.preventDefault();
 	$.ajax({

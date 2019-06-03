@@ -1,5 +1,7 @@
 package com.cyp.home.service.impl;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,10 @@ public class UserMemberServiceImpl implements UserMemberService {
 	
 	@Override
 	public int addUserMember(UserMember UserMember) {
+		UserMember.setId(UUID.randomUUID().toString());
+		int num = userMemberMapper.getNum();
+		String memberCode = String.format("%06d", num+1);
+		UserMember.setMemberCode(memberCode);
 		return userMemberMapper.addUserMember(UserMember);
 	}
 
@@ -21,5 +27,4 @@ public class UserMemberServiceImpl implements UserMemberService {
 	public UserMember getUserMemberByparams(UserMember userMember) {
 		return userMemberMapper.getUserMemberByparams(userMember);
 	}
-
 }

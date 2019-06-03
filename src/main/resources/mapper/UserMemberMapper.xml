@@ -47,7 +47,11 @@
   	order by create_time desc
   </select>
   
-    <insert id="addRoomFollow" parameterType="com.cyp.home.model.UserMember" >
+  <select id="getNum" resultType="java.lang.Integer">
+  	SELECT IFNULL(MAX(a.`member_code`),0) as num FROM m_user_member a 
+  </select>
+  
+    <insert id="addUserMember" parameterType="com.cyp.home.model.UserMember" >
     insert into m_user_member
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

@@ -69,10 +69,10 @@ background-color: blue
 						<td><input name="payWay" th:value="${roomInfo.payWay}"></td>
 					</tr>
 					<tr>
+						<td>业主电话</td>
+						<td><input name="ownerMobile" th:value="${roomInfo.ownerMobile}"></td>
 						<td colspan="2"><a href="#" style="text-align: center;" class="easyui-linkbutton" onclick="updateRoomInfo()" iconCls="icon-ok">修改资料</a></td>
 						<td colspan="2"><a href="#" style="text-align: center;" class="easyui-linkbutton" onclick="close_Room_XiangQing()" iconCls="icon-cancel">关闭窗口</a></td>
-						<td></td>
-						<td></td>
 						<td></td>
 						<td></td>
 					</tr>
@@ -106,9 +106,15 @@ background-color: blue
 	<div id="roomImage" style="width: 30%;float:right;">
 		这里放照片<br/>这里放照片<br/>这里放照片<br/>这里放照片<br/>这里放照片<br/>这里放照片<br/>这里放照片<br/>
 	</div>
+	<input id="lock" hidden="hidden" th:value="${roomInfo.lock}">
 </div>
 <script type="text/javascript">
+	var lock = $("#lock").val();
 	function addRoomFollow(){
+		if(lock == '1'){
+			alert("权限不足！");
+			return;
+		}
 		var roomId = $("#id").val();
 		var addContent = $("#addContent").val();
 		$.ajax({
@@ -132,6 +138,10 @@ background-color: blue
 	}
 	//修改房屋信息
 	function updateRoomInfo(){
+		if(lock == '1'){
+			alert("权限不足！");
+			return;
+		}
 		var roomInfoFormJson = $('#roomInfoForm').serializeObject();
 		//var obj4 = JSON.stringify(obj3);   //通过3转化为json字符串
 		$.ajax({

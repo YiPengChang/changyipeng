@@ -21,22 +21,18 @@ import com.cyp.home.model.RoomInfo;
 import com.cyp.home.model.UserMember;
 import com.cyp.home.service.RoomInfoService;
 import com.cyp.home.service.UserMemberService;
+import com.cyp.home.utils.ContextUtils;
 
 @Controller
 public class IndexController {
 	@Autowired
 	private RoomInfoService roomInfoService;
 	
-	@Autowired
-	private UserMemberService userMemberService;
 	@ResponseBody
 	@RequestMapping(value = {"queryRoomInfoPageJson.htm"})
-	public Map<String,Object> easeuiTest(HttpServletRequest request,ModelMap modelMap,RoomInfo roomInfo) {
-		HttpSession session = request.getSession();
-		UserMember userMember = (UserMember)session.getAttribute("loginUser");
+	public Map<String,Object> queryRoomInfoPageJson(HttpServletRequest request,ModelMap modelMap,RoomInfo roomInfo) {
 		
 		Map<String,Object> reMap = new HashMap<>(); 
-		roomInfo.setMemberCode(userMember.getMemberCode());
 		List<RoomInfo> roomInfoList = roomInfoService.selectRoomInfoByPage(roomInfo);
 		reMap.put("rows", roomInfoList);     //存放每页记录数
 		reMap.put("total", roomInfoService.selectRoomInfoByPage_COUNT(roomInfo));   //存放总记录数 ，必须的
@@ -64,21 +60,22 @@ public class IndexController {
 	//获取房屋详情页面
 	@RequestMapping(value = {"getRoom_XiangQing.htm"})
 	public String getRoom_XiangQing(HttpServletRequest request,ModelMap modelMap,String id) {
-		HttpSession session = request.getSession();
-		UserMember userMember = (UserMember)session.getAttribute("loginUser");
-		
 		RoomFollow roomFollow = new RoomFollow();
 		roomFollow.setRoomId(id);
-		roomFollow.setMemberCode(userMember.getMemberCode());
 		List<RoomFollow> roomFollowList = roomInfoService.selectRoomFollowByParams(roomFollow);
 		
 		//查询房屋信息
 		RoomInfo roomInfo = new RoomInfo();
 		roomInfo.setId(id);
-		roomInfo.setMemberCode(userMember.getMemberCode());
 		List<RoomInfo> roomInfoList = roomInfoService.selectRoomInfoByParams(roomInfo);
 		roomInfo = roomInfoList.get(0);
-		
+		if(!ContextUtils.getMemberCode().equals(roomInfo.getMemberCode()) ){
+			roomInfo.setLock("1");
+			String ownerMobile = roomInfo.getOwnerMobile();
+			if(!StringUtils.isEmpty(ownerMobile) && ownerMobile.length() == 11) {
+				roomInfo.setOwnerMobile(ownerMobile.substring(0,3)+ "*****"+ownerMobile.substring(8,11));
+			}
+		}
 		modelMap.addAttribute("roomFollowList", roomFollowList);
 		modelMap.addAttribute("roomInfo", roomInfo);
 		modelMap.addAttribute("roomId", id);
@@ -90,9 +87,7 @@ public class IndexController {
 	public ResultJson addRoomFollow(HttpServletRequest request,RoomFollow roomFollow) throws Exception {
 		ResultJson resultJson = new ResultJson();
 		
-		HttpSession session = request.getSession();
-		UserMember userMember = (UserMember)session.getAttribute("loginUser");
-		roomFollow.setMemberCode(userMember.getMemberCode());
+		roomFollow.setMemberCode(ContextUtils.getMemberCode());
 		String content = roomFollow.getContent();
 		if(StringUtils.isEmpty(content)) {
 			resultJson.setCode("2");
@@ -110,45 +105,7 @@ public class IndexController {
 		return count+"";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value = {"login.htm"})
-	public ResultJson login(UserMember userMember,HttpServletRequest request) throws Exception {
-		ResultJson resultJson = new ResultJson();
-		resultJson.setCode("0");
-		
-		String userName = userMember.getUserName();
-		String password = userMember.getPassword();
-		if(StringUtils.isEmpty(userName) || StringUtils.isEmpty(password)) {
-			resultJson.setCode("1");
-			resultJson.setMsg("不能为空！");
-			return resultJson;
-		}
-		UserMember queryUserMember = new UserMember();
-		queryUserMember.setUserName(userName);
-		UserMember resultUserMember = userMemberService.getUserMemberByparams(queryUserMember);
-		if(resultUserMember == null) {
-			resultJson.setCode("1");
-			resultJson.setMsg("用户名或密码错误！");
-			return resultJson;
-		}
-		if(!password.equals(resultUserMember.getPassword())) {
-			resultJson.setCode("1");
-			resultJson.setMsg("用户名或密码错误！");
-			return resultJson;
-		}
-		HttpSession session = request.getSession();
-		session.setAttribute("loginUser", resultUserMember);
-		
-		resultJson.setMsg("登陆成功");
-		return resultJson;
-	}
 	
-	@RequestMapping(value = {"unLogin.htm"})
-	public String unLogin(HttpServletRequest request) throws Exception {
-		HttpSession session = request.getSession();
-		if(session != null) {
-			session.removeAttribute("loginUser");
-		}
-		return "views/login";
-	}
+	
+
 }

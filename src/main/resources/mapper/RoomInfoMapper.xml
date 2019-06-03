@@ -20,6 +20,7 @@
     <result column="parking_fee" property="parkingFee" jdbcType="VARCHAR" />
     <result column="electricity_fee" property="electricityFee" jdbcType="VARCHAR" />
     <result column="pay_way" property="payWay" jdbcType="VARCHAR" />
+    <result column="owner_mobile" property="ownerMobile" jdbcType="VARCHAR" />
     <result column="create_Time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_Time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -78,10 +79,13 @@
   	<if test="payWay != null and payWay != '' ">
   		and pay_way = #{payWay}
   	</if>
+  	<if test="ownerMobile != null and ownerMobile != '' ">
+  		and owner_mobile = #{ownerMobile}
+  	</if>
   </sql>
   <sql id="Base_Column_List" >
     id, estate_Name, home_Status, area, price, region, oriented, home_Use, decoration, 
-    room_Number, floor_Num, real_Name, address, memberCode,estate_fee,parking_fee,electricity_fee,pay_way, create_Time, update_Time
+    room_Number, floor_Num, real_Name, address,owner_mobile, memberCode,estate_fee,parking_fee,electricity_fee,pay_way, create_Time, update_Time
   </sql>
   
   <select id="selectRoomInfoByPage" parameterType="com.cyp.home.model.RoomInfo" resultMap="BaseResultMap">
@@ -160,6 +164,9 @@
 	  	<if test="payWay">
 	  		pay_way = #{payWay},
 	  	</if>
+	  	<if test="ownerMobile">
+	  		owner_mobile = #{ownerMobile},
+	  	</if>
 	</set>
 	where 1=1
 	and id = #{id}
@@ -223,6 +230,9 @@
       <if test="payWay != null" >
         pay_way,
       </if>
+      <if test="ownerMobile != null" >
+        owner_mobile,
+      </if>
         create_Time,
         update_Time,
     </trim>
@@ -280,6 +290,9 @@
       </if>
       <if test="payWay != null" >
         #{payWay,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerMobile != null" >
+        #{ownerMobile,jdbcType=VARCHAR},
       </if>
         now(),
         now(),

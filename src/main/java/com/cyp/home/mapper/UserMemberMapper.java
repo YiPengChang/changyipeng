@@ -9,4 +9,6 @@ public interface UserMemberMapper {
 	public int addUserMember(UserMember UserMember);
 	
 	public UserMember getUserMemberByparams(UserMember userMember);
+	
+	public int getNum();
 }
