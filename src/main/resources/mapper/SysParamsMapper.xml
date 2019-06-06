@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cyp.home.mapper.SysParamsMapper" >
+  <resultMap id="BaseResultMap" type="com.cyp.home.model.SysParamsModel" >
+    <result column="sys_key" property="key" jdbcType="VARCHAR" />
+    <result column="key_value" property="keyValue" jdbcType="VARCHAR" />
+    <result column="key_group" property="keyGroup" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Where_List">
+  	<if test="key != null and key != '' ">
+  		and sys_key = #{key}
+  	</if>
+  	<if test="keyGroup != null  and keyGroup != '' ">
+  		and key_group = #{keyGroup}
+  	</if>
+  </sql>
+  <sql id="Base_Column_List" >
+    sys_key, key_value,key_group 
+  </sql>
+  
+  <select id="getSysParamsModel" parameterType="com.cyp.home.model.SysParamsModel" resultMap="BaseResultMap">
+  	select 
+  		<include refid="Base_Column_List"></include>
+  	from sys_params where 1=1
+  	<include refid="Base_Where_List"></include>
+  </select>
+</mapper>

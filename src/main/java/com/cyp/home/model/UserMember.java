@@ -108,11 +108,7 @@ public class UserMember implements Serializable {
 
 	@Override
 	public String toString() {
-		return "UserMember [id=" + id + ", memberCode=" + memberCode + ", realName=" + realName + ", mobile=" + mobile
-				+ ", email=" + email + ", userName=" + userName + ", password=" + password + ", createTime="
-				+ createTime + ", updateTime=" + updateTime + "]";
+		return "正在注册的用户信息：[姓名=" + realName + ", 手机号=" + mobile
+				+ ", 邮箱=" + email + ", 账号=" + userName  + "]";
 	}
-
-	
-	
 }

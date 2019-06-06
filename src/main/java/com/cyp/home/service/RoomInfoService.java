@@ -21,4 +21,6 @@ public interface RoomInfoService {
 	List<RoomFollow> selectRoomFollowByParams(RoomFollow roomFollow);
 	
 	int addRoomFollow(RoomFollow roomFollow);
+	
+	String vaildAddRoomInfo(RoomInfo roomInfo) ;
 }

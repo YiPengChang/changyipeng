@@ -58,12 +58,13 @@
 		            			<label>朝向：</label>
 		            		</td>
 		            		<td>
-		            			<select  id="oriented" name="oriented" class="easyui-combobox" panelHeight="auto" style="width:100px">
-					                <option value=""></option>
-					                <option value="1">朝南</option>
-					                <option value="2">朝北</option>
-					                <option value="3">朝东</option>
-					                <option value="4">朝西</option>
+		            			<select  id="oriented"  editable="false" name="oriented" class="easyui-combobox" panelHeight="auto"
+		            			 style="width:100px;">
+		            			 	<option></option>
+					                <option value="朝南">朝南</option>
+					                <option value="朝北">朝北</option>
+					                <option value="朝东">朝东</option>
+					                <option value="朝西">朝西</option>
 					            </select>
 		            		</td>
 		            		
@@ -170,8 +171,7 @@
             <tr>
                 <td align="right">朝向:</td>
                 <td>
-					<select  name="oriented" class="easyui-combobox" panelHeight="auto" style="width:100px">
-		                <option value=""></option>
+					<select  name="oriented" editable="false" class="easyui-combobox" panelHeight="auto" style="width:100px">
 		                <option value="朝南">朝南</option>
 		                <option value="朝北">朝北</option>
 		                <option value="朝东">朝东</option>
@@ -256,14 +256,15 @@
 			url:'addRoomInfo.htm',
 			success:function(data){
 				debugger;
-				if(data == '1'){
-					doSearch();
-					$.messager.alert('信息提示','提交成功！','info');
-					$('#wu-dialog-2').dialog('close');
+				if(data != 'seccess'){
+					$.messager.alert('信息提示',data,'info');
 				}
 				else
 				{
-					$.messager.alert(data,'info');
+					debugger;
+					doSearch();
+					$.messager.alert('信息提示',"添加成功",'info');
+					$('#wu-dialog-2').dialog('close');
 				}
 			}
 		});

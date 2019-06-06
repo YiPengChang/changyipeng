@@ -46,7 +46,14 @@ background-color: blue
 						<td>用途：</td>
 						<td><input name="homeUse" th:value="${roomInfo.homeUse}"></td>
 						<td>朝向：</td>
-						<td><input name="oriented" th:value="${roomInfo.oriented}"></td>
+						<td>
+							<select  name="oriented" editable="false"  class="easyui-combobox" panelHeight="auto" style="width:100px">
+				                <option value="朝南" th:selected="${roomInfo.oriented=='朝南'}" >朝南</option>
+				                <option value="朝北" th:selected="${roomInfo.oriented=='朝北'}">朝北</option>
+				                <option value="朝东" th:selected="${roomInfo.oriented=='朝东'}">朝东</option>
+				                <option value="朝西" th:selected="${roomInfo.oriented=='朝西'}">朝西</option>
+				            </select>
+						</td>
 					</tr>
 					<tr>
 						<td>层高：</td>
@@ -150,12 +157,12 @@ background-color: blue
 			  data: roomInfoFormJson,
 			  dataType: 'JSON',
 			  success: function(data) {
-				if(data == '1'){
+				if(data.code == '0'){
 					alert("修改成功！"); 
 					close_Room_XiangQing();
 					doSearch();
 				}else{
-					alert(data)
+					alert(data.msg)
 				}
 			  }
 			});

@@ -13,7 +13,7 @@
         	<h1>Admin</h1>
         </div>
         <div class="wu-header-right">
-        	<p><strong class="easyui-tooltip" title="2条未读消息">admin</strong>，欢迎您！</p>
+        	<p><strong th:text="${session.loginUser==null?'':session.loginUser.realName}" class="easyui-tooltip" title="2条未读消息" ></strong>，欢迎您！</p>
             <p><a href="unLogin.htm">安全退出</a></p>
         </div>
     </div>
@@ -93,7 +93,6 @@
 		* Param iframe 链接跳转方式（true为iframe，false为href）
 		*/	
 		function addTab(title, href, iconCls, iframe){
-			
 			var tabPanel = $('#wu-tabs');
 			if(!tabPanel.tabs('exists',title)){
 				var content = '<iframe scrolling="auto" frameborder="0"  src="/'+ href +'" style="width:100%;height:100%;"></iframe>';

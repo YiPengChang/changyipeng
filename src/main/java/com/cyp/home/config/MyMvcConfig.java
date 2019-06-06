@@ -19,7 +19,6 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter{
 		registry.addViewController("/loginView.htm").setViewName("views/login");
 		registry.addViewController("/admin.htm").setViewName("views/admin");
 		registry.addViewController("/getRoomInfoPage.htm").setViewName("views/temp/queryRoomInfoPage");
-		registry.addViewController("/getRegister.htm").setViewName("views/register");
 	}
 
 	@Override
@@ -31,6 +30,8 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter{
 		excludePath.add("/login.htm");
 		excludePath.add("/getRegister.htm");
 		excludePath.add("/register.htm");
+		excludePath.add("/getYanZhengCode.htm");
+		excludePath.add("/getYanZhengCode2.htm");
 		registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**.htm").excludePathPatterns(excludePath);
 	}
 
